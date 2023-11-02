@@ -16,7 +16,6 @@ declare module 'vue' {
     Checkbox: typeof import('./components/crud/fields/checkbox.vue')['default']
     CloseButton: typeof import('./components/functional/close-button.vue')['default']
     CollectionEditor: typeof import('./components/CollectionEditor.vue')['default']
-    CollectionEditorOption: typeof import('./components/CollectionEditorOption.vue')['default']
     CustomList: typeof import('./components/custom/CustomList.vue')['default']
     Delete: typeof import('./components/crud/delete.vue')['default']
     Drawer: typeof import('./components/functional/drawer.vue')['default']
