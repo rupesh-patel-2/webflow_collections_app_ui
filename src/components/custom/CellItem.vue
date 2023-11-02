@@ -12,6 +12,12 @@
                     </option>
                 </select>
             </span>
+            <span v-else-if="props.item_type == 'Image'">
+                <img :src="displayValue.url" class="w-20">
+            </span>
+            <span v-else-if="props.item_type == 'RichText'">
+                <div v-html="renderedContent"></div>
+            </span>
             <span v-else @click="editClickHandler">
                 {{ displayValue }}
             </span>
@@ -35,7 +41,8 @@ const props = defineProps<{
 }>();
 
 let editValue = ref<string>(props.item_value);
-let displayValue = ref<string>(props.item_value);
+let displayValue = ref<any>(props.item_value);
+
 
 const blurHandler = (event: any) => {
     editMode.value = false;
@@ -52,9 +59,15 @@ const editClickHandler = () => {
     let editableTypes = ['PlainText', 'Option'];
     console.log(props.item_type);
     if (props.item_type != undefined && editableTypes.includes(props.item_type)) {
-        console.log('ifff');
         editMode.value = true;
     }
 }
+
+// Create a computed property to render the content without HTML tags
+const renderedContent = computed(() => {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = displayValue.value;
+    return tempElement.textContent || tempElement.innerText;
+});
 
 </script>
