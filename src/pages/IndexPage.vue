@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CollectionEditor from '@/components/CollectionEditor.vue'
-import { SelectDropdown, Dropdown } from '@/components/crud'
+import { SelectDropdown } from '@/components/crud'
 import ajax from "@/accessories/ajax";
 
 // useRoute, useHead, and HelloWorld are automatically imported. See vite.config.ts for details.
@@ -24,7 +24,6 @@ let selectedSiteId = ref<number>(0);
 let selectedCollectionId = ref<number>(0);
 let sites = ref<Array<any>>([]);
 let collections = ref<Array<any>>([]);
-let cols = ref<Array<any>>([]);
 
 // Site Ids list
 async function listOfSites() {
@@ -87,66 +86,17 @@ async function siteCollection(siteId: any) {
 
 }
 
-
 function collectionChangeHandler(change: any) {
   selectedCollectionId.value = change.new;
-  // collectionFields(selectedCollectionId.value);
 }
-
-// Selected Collection's Field Type
-// async function collectionFields(selectedCollectionId: any) {
-//   let aj = new (ajax as any)();
-//   let data = [
-//     {
-//       endPoint: "collections/" + selectedCollectionId,
-//       params: selectedCollectionId,
-//     },
-//   ];
-
-//   let result = await aj.post("/CallApi.php", data);
-
-
-//   if (result.status == 200) {
-//     let colData = [];
-//     for (let i in result.data.fields) {
-//       colData.push({ key: result.data.fields[i]['slug'], label: result.data.fields[i]['displayName'], item_type: result.data.fields[i]['type'] });
-//     }
-//     cols.value = colData;
-
-//   } else {
-//     return false;
-//   }
-// }
 
 let checkedItems: any = ref<Array<any>>([]);
-  
-function colsToDisplay(event: any) {
 
-  if (event.checked) {
-    checkedItems.value.push({
-      'key': event.id,
-      'label': event.value,
-    });
-    console.log("checkedItems", checkedItems.value);
-  } else {
-    // console.log('splice', checkedItems.value.indexOf(checkedItems.value));
-
-    console.log("find index id", checkedItems.value.splice(checkedItems.value.indexOf(event.id)));
-
-    // checkedItems.value.splice(checkedItems.value.indexOf(checkedItems.value));
-    // console.log("final checkedItems", checkedItems.value);
-
-  }
-}
-
-function clearCheckedValues() {
-  checkedItems.value = [];
-
-}
 
 </script>
 
 <template>
+
   <div class="container mx-auto mt-5">
 
     <div class="flex items-end">
@@ -157,12 +107,9 @@ function clearCheckedValues() {
         label="Select Collection" class="w-1/3 ml-2">
       </SelectDropdown>
 
-      <!-- <Dropdown :options="cols" label="Select Columns to Display " class="w-1/3 ml-2" @allCheck="colsToDisplay"
-        @clearCheckedValues="clearCheckedValues">
-      </Dropdown> -->
+      <div id="columnsDropdown" class="w-1/3 ml-2">
 
-
-
+      </div>
     </div>
 
     <CollectionEditor :selectedSiteId=selectedSiteId :selectedCollectionId=selectedCollectionId

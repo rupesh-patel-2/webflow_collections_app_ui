@@ -16,13 +16,12 @@
 
         </div>
 
-        <Dropdown :options="listCols" label="Select Columns to Display " class="w-1/3 ml-2" @change="columnChangeHandler">
-        </Dropdown>
+        <teleport to="#columnsDropdown" v-if="elementExists">
+            <Dropdown :options="listCols" label="Select Columns to Display " @change="columnChangeHandler">
+            </Dropdown>
+        </teleport>
 
-        <CustomList :columns="visibleColumns" :items="listItems" class="table-auto" @editEvent="editHandler">
-
-
-        </CustomList>
+        <CustomList :columns="visibleColumns" :items="listItems" class="table-auto" @editEvent="editHandler"></CustomList>
     </div>
 </template>
 
@@ -45,6 +44,14 @@ let editedData: any = {};
 let editedCount = ref<number>(0);
 
 let visibleColumns = ref<Array<any>>([]);
+
+const elementExists = ref(false);
+
+onMounted(() => {
+    // Check if the element exists on mount
+    elementExists.value = document.body.contains(document.querySelector('#columnsDropdown'));
+});
+
 
 // watch works directly on a ref
 watch(() => props.selectedCollectionId, (first, second) => {
@@ -89,7 +96,6 @@ async function collectionFields() {
 }
 
 
-
 // Selected Collection's Item List
 async function collectionList() {
 
@@ -118,6 +124,23 @@ async function collectionList() {
 
 
 }
+
+let contentVisible = ref(false);
+onMounted(() => {
+    teleportContent();
+
+    document.addEventListener('teleport-content', () => {
+        contentVisible.value = true;
+    });
+});
+
+const teleportContent = () => {
+    // Emit an event to let the parent component or a higher-level component know to teleport the content.
+    // You can use an event bus or Vuex for this in a real application.
+    const event = new Event('teleport-content');
+    document.dispatchEvent(event);
+};
+
 
 function columnChangeHandler(updatedList: any) {
     console.log('updated list', updatedList);
