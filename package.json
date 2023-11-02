@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "cross-env DEBUG=0 vite",
-    "build": "vite build",
+    "build": "vite build && mkdir dist/app && cp -R app/ dist/",
     "preview": "vite build && vite preview",
     "start": "pnpm dev & wait-on tcp:3000 -v",
     "test": "vitest",

@@ -149,7 +149,7 @@ function clearCheckedValues() {
 <template>
   <div class="container mx-auto mt-5">
 
-    <div class="flex">
+    <div class="flex items-end">
       <SelectDropdown :options="sites" name="site" label="Select Site" @change="siteCollection" class="w-1/3">
       </SelectDropdown>
 
