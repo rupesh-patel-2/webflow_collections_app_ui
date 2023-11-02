@@ -16,7 +16,10 @@
 
         </div>
 
-        <CustomList :columns="props.checkedItems" :items="listItems" class="table-auto" @editEvent="editHandler">
+        <Dropdown :options="listCols" label="Select Columns to Display " class="w-1/3 ml-2" @change="columnChangeHandler">
+        </Dropdown>
+
+        <CustomList :columns="visibleColumns" :items="listItems" class="table-auto" @editEvent="editHandler">
 
 
         </CustomList>
@@ -26,6 +29,7 @@
 <script setup lang="ts">
 import ajax from "@/accessories/ajax";
 import CustomList from "@/components/custom/CustomList.vue";
+import Dropdown from "@/components/crud/fields/dropdown.vue";
 
 const props = defineProps({
     selectedSiteId: { type: Number, default: 0 },
@@ -39,6 +43,8 @@ let editHistory = ref<Array<any>>([]);
 let editMessage = ref<string>('');
 let editedData: any = {};
 let editedCount = ref<number>(0);
+
+let visibleColumns = ref<Array<any>>([]);
 
 // watch works directly on a ref
 watch(() => props.selectedCollectionId, (first, second) => {
@@ -72,9 +78,10 @@ async function collectionFields() {
 
         let colData = [];
         for (let i in result.data.fields) {
-            colData.push({ key: result.data.fields[i]['slug'], label: result.data.fields[i]['displayName'] });
+            colData.push({ key: result.data.fields[i]['slug'], label: result.data.fields[i]['displayName'], item_type: result.data.fields[i]['type'], validations: result.data.fields[i]['validations'] });
         }
         listCols.value = colData;
+        visibleColumns.value = listCols.value;
 
     } else {
         return false;
@@ -110,6 +117,11 @@ async function collectionList() {
     }
 
 
+}
+
+function columnChangeHandler(updatedList: any) {
+    console.log('updated list', updatedList);
+    visibleColumns.value = updatedList;
 }
 
 function editHandler(data: any) {

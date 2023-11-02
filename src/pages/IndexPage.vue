@@ -90,33 +90,33 @@ async function siteCollection(siteId: any) {
 
 function collectionChangeHandler(change: any) {
   selectedCollectionId.value = change.new;
-  collectionFields(selectedCollectionId.value);
+  // collectionFields(selectedCollectionId.value);
 }
 
 // Selected Collection's Field Type
-async function collectionFields(selectedCollectionId: any) {
-  let aj = new (ajax as any)();
-  let data = [
-    {
-      endPoint: "collections/" + selectedCollectionId,
-      params: selectedCollectionId,
-    },
-  ];
+// async function collectionFields(selectedCollectionId: any) {
+//   let aj = new (ajax as any)();
+//   let data = [
+//     {
+//       endPoint: "collections/" + selectedCollectionId,
+//       params: selectedCollectionId,
+//     },
+//   ];
 
-  let result = await aj.post("/CallApi.php", data);
+//   let result = await aj.post("/CallApi.php", data);
 
 
-  if (result.status == 200) {
-    let colData = [];
-    for (let i in result.data.fields) {
-      colData.push({ key: result.data.fields[i]['slug'], label: result.data.fields[i]['displayName'], item_type: result.data.fields[i]['type'] });
-    }
-    cols.value = colData;
+//   if (result.status == 200) {
+//     let colData = [];
+//     for (let i in result.data.fields) {
+//       colData.push({ key: result.data.fields[i]['slug'], label: result.data.fields[i]['displayName'], item_type: result.data.fields[i]['type'] });
+//     }
+//     cols.value = colData;
 
-  } else {
-    return false;
-  }
-}
+//   } else {
+//     return false;
+//   }
+// }
 
 let checkedItems: any = ref<Array<any>>([]);
   
@@ -157,9 +157,9 @@ function clearCheckedValues() {
         label="Select Collection" class="w-1/3 ml-2">
       </SelectDropdown>
 
-      <Dropdown :options="cols" label="Select Columns to Display " class="w-1/3 ml-2" @allCheck="colsToDisplay"
+      <!-- <Dropdown :options="cols" label="Select Columns to Display " class="w-1/3 ml-2" @allCheck="colsToDisplay"
         @clearCheckedValues="clearCheckedValues">
-      </Dropdown>
+      </Dropdown> -->
 
 
 

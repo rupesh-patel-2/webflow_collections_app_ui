@@ -39,7 +39,9 @@
                                     <td v-for="column in columns"
                                         :class="column.class ? column.class : 'p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400'">
                                         <slot :name="`cell(${column.key})`" :item="item" :index="index">
-                                            <CellItem  :column_key="column.key" :item_value="item[column.key]" :item_id="item['item_id']" @editEvent="editHandler" ></CellItem>
+                                            <CellItem :column_key="column.key" :item_value="item[column.key]"
+                                                :item_id="item['item_id']" @editEvent="editHandler"
+                                                :item_type="column.item_type" :validations="column.validations"></CellItem>
                                         </slot>
                                     </td>
                                 </tr>
@@ -68,7 +70,7 @@
 <script setup lang="ts">
 import CellItem from "@/components/custom/CellItem.vue"
 const emits = defineEmits(["action", "editEvent"]);
-let currentItem = false;
+// let currentItem = false;
 let checkedItems: any = ref<Array<any>>([]);
 const props = defineProps<{
     items: Array<any>,
@@ -81,7 +83,7 @@ const props = defineProps<{
 }>();
 
 let ckColumn = props.checkColumn ? props.checkColumn : "id";
-let allSelected: any = [];
+// let allSelected: any = [];
 
 async function editCheckedData() {
     if (props.editData && props.editData.contacts) {
@@ -102,9 +104,9 @@ const allCheck = (event: any) => {
     }
 }
 
-const handleAction = (action: any) => {
-    emits('action', action);
-}
+// const handleAction = (action: any) => {
+//     emits('action', action);
+// }
 
 const editHandler = (data: any) => {
     emits('editEvent', data);
