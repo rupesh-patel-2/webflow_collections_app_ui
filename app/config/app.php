@@ -16,7 +16,7 @@ define('CLIENT_SECRET', '5211aaaf688c0f8e6fb11cd91ca13b28b454190409c61196b6c3b62
 define('SCOPES', 'assets:read assets:write authorized_user:read cms:read cms:write custom_code:read custom_code:write forms:read forms:write pages:read pages:write sites:read sites:write');
 
 # End-point to start the process of Authroization.
-define('AUTHORIZATION_URL', 'https://webflow.com/oauth/authorize');
+define('AUTHORIZATION_URL', 'https://webflow.pixlapi.com/plp/cmsadmin/app/authorize.php');
 
 # Default Response Type.
 define('RESPONSE_TYPE', 'code');

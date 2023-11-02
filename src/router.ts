@@ -16,7 +16,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/projects/webflow_applications/webflow_collections_ui/dist'),
+  history: createWebHistory('/plp/cmsadmin/'),
   routes,
 })
 
