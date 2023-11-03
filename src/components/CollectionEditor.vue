@@ -33,7 +33,6 @@ import Dropdown from "@/components/crud/fields/dropdown.vue";
 const props = defineProps({
     selectedSiteId: { type: Number, default: 0 },
     selectedCollectionId: { type: Number, default: 0 },
-    checkedItems: { type: Array },
 })
 
 let listCols = ref<Array<any>>([]);
@@ -81,8 +80,6 @@ async function collectionFields() {
 
 
     if (result.status == 200) {
-        console.log(result.data.fields);
-
         let colData = [];
         for (let i in result.data.fields) {
             colData.push({ key: result.data.fields[i]['slug'], label: result.data.fields[i]['displayName'], item_type: result.data.fields[i]['type'], validations: result.data.fields[i]['validations'] });
@@ -135,15 +132,12 @@ onMounted(() => {
 });
 
 const teleportContent = () => {
-    // Emit an event to let the parent component or a higher-level component know to teleport the content.
-    // You can use an event bus or Vuex for this in a real application.
     const event = new Event('teleport-content');
     document.dispatchEvent(event);
 };
 
 
 function columnChangeHandler(updatedList: any) {
-    console.log('updated list', updatedList);
     visibleColumns.value = updatedList;
 }
 

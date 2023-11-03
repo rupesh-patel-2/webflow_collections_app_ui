@@ -39,14 +39,12 @@ async function listOfSites() {
     let result = await aj.post("/CallApi.php", data);
 
     if (result.status == 200) {
-      console.log(result.data.sites);
       sites.value = [];
       let SiteDetails = [];
       for (let i in result.data.sites) {
         let st = result.data.sites[i];
         SiteDetails.push({ value: st.id, label: st.displayName })
       }
-      console.log(SiteDetails);
       sites.value = SiteDetails;
     } else {
       return false;
@@ -71,15 +69,12 @@ async function siteCollection(siteId: any) {
 
   let result = await aj.post("/CallApi.php", data);
   if (result.status == 200) {
-    console.log(result);
-
     collections.value = [];
     let collectionDetails = [];
     for (let i in result.data.collections) {
       let st = result.data.collections[i];
       collectionDetails.push({ value: st.id, label: st.displayName })
     }
-    console.log(collectionDetails);
     collections.value = collectionDetails;
   }
 
@@ -90,13 +85,9 @@ function collectionChangeHandler(change: any) {
   selectedCollectionId.value = change.new;
 }
 
-let checkedItems: any = ref<Array<any>>([]);
-
-
 </script>
 
 <template>
-
   <div class="container mx-auto mt-5">
 
     <div class="flex items-end">
@@ -107,13 +98,11 @@ let checkedItems: any = ref<Array<any>>([]);
         label="Select Collection" class="w-1/3 ml-2">
       </SelectDropdown>
 
-      <div id="columnsDropdown" class="w-1/3 ml-2">
+      <div id="columnsDropdown" class="w-1/3 ml-2"></div>
 
-      </div>
     </div>
 
-    <CollectionEditor :selectedSiteId=selectedSiteId :selectedCollectionId=selectedCollectionId
-      :checkedItems=checkedItems></CollectionEditor>
+    <CollectionEditor :selectedSiteId=selectedSiteId :selectedCollectionId=selectedCollectionId></CollectionEditor>
 
   </div>
 </template>

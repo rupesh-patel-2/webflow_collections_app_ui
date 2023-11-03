@@ -70,7 +70,6 @@
 <script setup lang="ts">
 import CellItem from "@/components/custom/CellItem.vue"
 const emits = defineEmits(["action", "editEvent"]);
-// let currentItem = false;
 let checkedItems: any = ref<Array<any>>([]);
 const props = defineProps<{
     items: Array<any>,
@@ -83,7 +82,6 @@ const props = defineProps<{
 }>();
 
 let ckColumn = props.checkColumn ? props.checkColumn : "id";
-// let allSelected: any = [];
 
 async function editCheckedData() {
     if (props.editData && props.editData.contacts) {
@@ -103,10 +101,6 @@ const allCheck = (event: any) => {
         checkedItems.value = []
     }
 }
-
-// const handleAction = (action: any) => {
-//     emits('action', action);
-// }
 
 const editHandler = (data: any) => {
     emits('editEvent', data);

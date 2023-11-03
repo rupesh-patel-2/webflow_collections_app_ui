@@ -57,7 +57,6 @@ const blurHandler = (event: any) => {
 
 const editClickHandler = () => {
     let editableTypes = ['PlainText', 'Option'];
-    console.log(props.item_type);
     if (props.item_type != undefined && editableTypes.includes(props.item_type)) {
         editMode.value = true;
     }
